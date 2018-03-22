@@ -18,7 +18,7 @@ class Item extends Component {
               avatar={{uri: item.img}}
               rightIcon={{ name: 'add-shopping-cart' }}
               chevronColor={'#555'}
-              onPressRightIcon={() => this.props.addToBasket(item)}
+              onPressRightIcon={() => this.props.addToBasket(item, index)}
               />
             </View>
           );

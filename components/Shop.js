@@ -37,7 +37,7 @@ export default class Shop extends Component {
   render() {
     return (
       <View style={styles.shopContainer}>
-        <Text style={styles.title}>SHOP</Text>
+        <Text style={styles.title}>MAGASIN</Text>
 
         <View style={styles.shopDisplay}>
           <Items items={this.state.items}
@@ -56,7 +56,7 @@ class Items extends Component {
   render() {
     return (
       <View style={styles.items}>
-        <Text style={styles.title}>ITEMS</Text>
+        <Text style={styles.title}>Produits</Text>
         <Item {...this.props}/>
       </View>
     );
@@ -67,7 +67,7 @@ class Basket extends Component {
   render() {
     return (
       <View style={styles.basket}>
-        <Text style={styles.title}>BASKET</Text>
+        <Text style={styles.title}>Panier</Text>
 
         {this.props.basket.length > 0
           ?
@@ -87,7 +87,7 @@ class Basket extends Component {
             )
           })
           :
-          <Text>Basket empty...</Text>
+          <Text>Le panier est vide :'(</Text>
         }        
       </View>
     );

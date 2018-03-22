@@ -65,27 +65,36 @@ class Items extends Component {
 
 class Basket extends Component {
   render() {
+
+    let totalPrice = 0;
+
     return (
       <View style={styles.basket}>
         <Text style={styles.title}>Panier</Text>
 
         {this.props.basket.length > 0
           ?
-          this.props.basket.map((item, index) => {
-            return (
-              <View key={index} style={{ width: '100%' }}>
-                <ListItem
-                roundAvatar
-                title={item.name}
-                subtitle={item.price}
-                avatar={{uri: item.img}}  
-                rightIcon={{ name: 'remove-shopping-cart' }}
-                chevronColor={'#555'}
-                onPressRightIcon={() => this.props.removeFromBasket(index)}
-                />
-              </View>
-            )
-          })
+          <View>
+            {this.props.basket.map((item, index) => {
+              totalPrice += item.price;
+
+              return (
+                <View key={index} style={{ width: '100%' }}>
+                  <ListItem
+                  roundAvatar
+                  title={item.name}
+                  subtitle={item.price}
+                  avatar={{uri: item.img}}  
+                  rightIcon={{ name: 'remove-shopping-cart' }}
+                  chevronColor={'#555'}
+                  onPressRightIcon={() => this.props.removeFromBasket(index)}
+                  />
+                </View>
+              )
+            })
+          }
+            <Text style={{ textAlign: 'right' }}>Total: {totalPrice}€</Text>          
+          </View>          
           :
           <Text>Le panier est vide :'(</Text>
         }        
@@ -97,32 +106,32 @@ class Basket extends Component {
 const shopItems = [
   {
     name: "Veste Biker",
-    price: "3590€",
+    price: 3590,
     img: 'https://cdn.yoox.biz/41/41772423uo_11_a_f.jpg'
   },
   {
     name: "Chemise Oklm",
-    price: "550€",
+    price: 550,
     img: 'https://cdn.yoox.biz/38/38668609fq_11_a_f.jpg'    
   },
   {
     name: "Sweat à Capuche",
-    price: "595€",
+    price: 595,
     img: 'https://cdn.yoox.biz/12/12124913jn_11_a_f.jpg'    
   },
   {
     name: 'Sac à dos',
-    price: "1490€",
+    price: 1490,
     img: 'https://cdn.yoox.biz/45/45383747jk_11_a_f.jpg'    
   },
   {
     name: "Runners Race",
-    price: "495€",
+    price: 495,
     img: 'https://cdn.yoox.biz/11/11424345un_11_a_f.jpg'    
   },
   {
     name: "Parka Double Hem",
-    price: "1395€",
+    price: 1395,
     img: 'https://cdn.yoox.biz/41/41739427oa_11_a_f.jpg'    
   }
 ];

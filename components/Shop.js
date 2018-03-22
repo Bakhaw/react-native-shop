@@ -7,7 +7,7 @@ export default class Shop extends Component {
   render() {
     return (
       <View style={styles.shopContainer}>
-        <Text>SHOP</Text>
+        <Text style={styles.title}>SHOP</Text>
 
         <View style={styles.shopDisplay}>
           <Items />
@@ -23,7 +23,7 @@ class Items extends Component {
   render() {
     return (
       <View style={styles.items}>
-        <Text>ITEMS</Text>
+        <Text style={styles.title}>ITEMS</Text>
         <Item items={items}/>
       </View>
     );
@@ -34,7 +34,7 @@ class Basket extends Component {
   render() {
     return (
       <View style={styles.basket}>
-        <Text>BASKET</Text>
+        <Text style={styles.title}>BASKET</Text>
       </View>
     );
   }
@@ -43,48 +43,54 @@ class Basket extends Component {
 const items = [
   {
     name: "Casquette",
-    price: "35€"
+    price: "35€",
   },
   {
     name: "Veste",
-    price: "90€"
+    price: "90€",
   },
   {
     name: "Chaussure",
-    price: "120€"
+    price: "120€",
   },
   {
     name: "Montre",
-    price: "230€"
+    price: "230€",
   },
   {
     name: "Lunettes",
-    price: "150€"
+    price: "150€",
   },
   {
     name: "T-Shirt",
-    price: "40€"
+    price: "40€",
   }
 ];
 
 const styles = StyleSheet.create({
+  title: {
+    fontSize: 35,
+    textAlign: 'center'
+  },
   shopContainer: {
-    flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'center',
-    minHeight: '100%',
-    backgroundColor: 'red'
+    width: '100%',
+    height: 300,
+    backgroundColor: '#fff'
   },
   shopDisplay: {
     flex: 1,
     flexDirection: 'row',
   },
   items: {
-    borderWidth: 2,
-    borderColor: 'black'
+    width: '75%',
+    borderWidth: 1,
+    borderColor: 'black',
+    padding: 20
   },
   basket: {
-    borderWidth: 2,
-    borderColor: 'black'
+    width: '25%',    
+    borderWidth: 1,
+    borderColor: 'black',
+    padding: 20
   }
 });

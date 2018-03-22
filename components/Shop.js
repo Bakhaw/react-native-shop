@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Text } from 'react-native';
-import { Card, ListItem, Button } from 'react-native-elements';
+import { Card, ListItem, Button, Icon } from 'react-native-elements';
 
 import Item from './Item';
 
@@ -37,8 +37,6 @@ export default class Shop extends Component {
   render() {
     return (
       <View style={styles.shopContainer}>
-        <Text style={styles.title}>MAGASIN</Text>
-
         <View style={styles.shopDisplay}>
           <Items items={this.state.items}
                  basket={this.state.basket}
@@ -56,7 +54,7 @@ class Items extends Component {
   render() {
     return (
       <View style={styles.items}>
-        <Text style={styles.title}>Produits</Text>
+        <Icon name='shopping-cart' size={40} type='font-awesome'/>
         <Item {...this.props}/>
       </View>
     );
@@ -70,7 +68,7 @@ class Basket extends Component {
 
     return (
       <View style={styles.basket}>
-        <Text style={styles.title}>Panier</Text>
+        <Icon name='shopping-basket' size={40} type='font-awesome'/>
 
         {this.props.basket.length > 0
           ?
@@ -96,7 +94,7 @@ class Basket extends Component {
             <Text style={{ textAlign: 'right' }}>Total: {totalPrice}€</Text>          
           </View>          
           :
-          <Text>Le panier est vide :'(</Text>
+          <Text style={{ textAlign: 'center' }}>Le panier est vide :'(</Text>
         }        
       </View>
     );
@@ -137,10 +135,6 @@ const shopItems = [
 ];
 
 const styles = StyleSheet.create({
-  title: {
-    fontSize: 35,
-    textAlign: 'center'
-  },
   shopContainer: {
     paddingTop: 30,
     width: '100%',

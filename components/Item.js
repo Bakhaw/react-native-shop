@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Text } from 'react-native';
-import { Card, ListItem, Button } from 'react-native-elements';
+import { Card, ListItem, Icon } from 'react-native-elements';
 
 class Item extends Component {
   render() {
@@ -10,14 +10,16 @@ class Item extends Component {
       {
         this.props.items.map((item, index) => {
           return (
-            <View>
+            <View key={index} style={{ width: '100%' }}>
               <ListItem
-              key={index}
               roundAvatar
-              title={`${item.name} - ${item.price}`}
+              title={item.name}
+              subtitle={item.price}
               avatar={{uri: item.img}}
+              rightIcon={{ name: 'add-shopping-cart' }}
+              chevronColor={'#555'}
+              onPressRightIcon={() => this.props.addToBasket(item)}
               />
-              <Button title='add' onPress={() => this.props.addToBasket(item)}/>
             </View>
           );
         })
@@ -26,21 +28,5 @@ class Item extends Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  items: {
-    width: '100%',
-    flex: 1,
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'center',
-  },
-  item: {
-    width: '100%',
-    padding: 5,
-    borderWidth: 1,
-    borderColor: '#000'
-  }
-})
 
 export default Item;

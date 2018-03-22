@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Text } from 'react-native';
-import { Button } from 'react-native-elements';
+import { Card, ListItem, Button } from 'react-native-elements';
 
 import Item from './Item';
 
@@ -20,18 +20,18 @@ export default class Shop extends Component {
   };
 
   removeFromBasket = (index) => {
-    // const basket = this.state.basket;
-    // const newBasket = [...basket.slice(0, index), ...basket.slice(index + 1)];
-    // this.setState({
-    //   basket: newBasket
-    // })
-    this.setState(prevState => {
-      let newBasket = prevState.basket.slice();
-      newBasket.splice(index, 1);
-      this.setState({ 
-        basket: newBasket
-      });
+    const basket = this.state.basket;
+    const newBasket = [...basket.slice(0, index), ...basket.slice(index + 1)];
+    this.setState({
+      basket: newBasket
     })
+    // this.setState(prevState => {
+    //   let newBasket = prevState.basket.slice();
+    //   newBasket.splice(index, 1);
+    //   this.setState({ 
+    //     basket: newBasket
+    //   });
+    // })
   };
 
   render() {
@@ -68,15 +68,26 @@ class Basket extends Component {
     return (
       <View style={styles.basket}>
         <Text style={styles.title}>BASKET</Text>
-        {this.props.basket.length > 0 &&
+
+        {this.props.basket.length > 0
+          ?
           this.props.basket.map((item, index) => {
             return (
-              <View>
-                <Text>{item.name}</Text>
-                <Button title='remove' onPress={() => this.props.removeFromBasket(index)}/>                
+              <View key={index} style={{ width: '100%' }}>
+                <ListItem
+                roundAvatar
+                title={item.name}
+                subtitle={item.price}
+                avatar={{uri: item.img}}  
+                rightIcon={{ name: 'delete' }}
+                chevronColor={'#555'}
+                onPressRightIcon={() => this.props.removeFromBasket(index)}
+                />
               </View>
             )
           })
+          :
+          <Text>Basket empty...</Text>
         }        
       </View>
     );

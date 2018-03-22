@@ -79,7 +79,7 @@ class Basket extends Component {
                 title={item.name}
                 subtitle={item.price}
                 avatar={{uri: item.img}}  
-                rightIcon={{ name: 'delete' }}
+                rightIcon={{ name: 'remove-shopping-cart' }}
                 chevronColor={'#555'}
                 onPressRightIcon={() => this.props.removeFromBasket(index)}
                 />

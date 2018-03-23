@@ -31,28 +31,21 @@ export default class Shop extends Component {
   };
 
   removeFromBasket = (item, index) => {
-    if (item.count > 1) {
-      const newBasket = this.state.basket.map(data => {
-        if (data.name === item.name) {
-          return {
-            ...data,
-            count: --data.count
-          }
-        }
-        return data;
-      })
+    if (item.count <= 1) {
+      const basket = this.state.basket;
+      const newBasket = [...basket.slice(0, index), ...basket.slice(index + 1)];
       
       this.setState({
-        basket: newBasket,
-        totalPrice: this.state.totalPrice - item.price        
+        basket: newBasket
       })
-    } else {
-      const newBasket = this.state.basket.filter(data => data.name !== item.name)
+    }
 
-      this.setState({
-        basket: newBasket,
-        totalPrice: this.state.totalPrice - item.price        
-      })
+    this.setState({
+      totalPrice: this.state.totalPrice - item.price
+    })
+
+    if (item.count > 1) {
+      item.count--
     }
   };
 

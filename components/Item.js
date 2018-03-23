@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text } from 'react-native';
-import { Card, ListItem, Icon } from 'react-native-elements';
+import { View } from 'react-native';
+import { Card, ListItem } from 'react-native-elements';
 
 class Item extends Component {
   render() {
@@ -14,7 +14,7 @@ class Item extends Component {
               <ListItem
               roundAvatar
               title={item.name}
-              subtitle={item.price}
+              subtitle={`${item.price}€`}
               avatar={{uri: item.img}}
               rightIcon={{ name: 'add-shopping-cart' }}
               chevronColor={'#555'}

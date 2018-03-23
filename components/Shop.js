@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import { Card, ListItem, Button, Icon } from 'react-native-elements';
 
-import Item from './Item';
+import Items from './Items';
+import Basket from './Basket';
 
 export default class Shop extends Component {
   constructor(props) {
@@ -15,7 +16,6 @@ export default class Shop extends Component {
   }
 
   addToBasket = (item, index) => { 
-    console.log(item.price);
     if (this.state.basket.includes(item)) {
       item.count++;      
       this.setState({
@@ -31,21 +31,28 @@ export default class Shop extends Component {
   };
 
   removeFromBasket = (item, index) => {
-    if (item.count <= 1) {
-      const basket = this.state.basket;
-      const newBasket = [...basket.slice(0, index), ...basket.slice(index + 1)];
+    if (item.count > 1) {
+      const newBasket = this.state.basket.map(data => {
+        if (data.name === item.name) {
+          return {
+            ...data,
+            count: --data.count
+          }
+        }
+        return data;
+      })
       
       this.setState({
-        basket: newBasket
+        basket: newBasket,
+        totalPrice: this.state.totalPrice - item.price        
       })
-    }
+    } else {
+      const newBasket = this.state.basket.filter(data => data.name !== item.name)
 
-    this.setState({
-      totalPrice: this.state.totalPrice - item.price
-    })
-
-    if (item.count > 1) {
-      item.count--
+      this.setState({
+        basket: newBasket,
+        totalPrice: this.state.totalPrice - item.price        
+      })
     }
   };
 
@@ -61,53 +68,6 @@ export default class Shop extends Component {
                   totalPrice={this.state.totalPrice}/>
         </View>
       
-      </View>
-    );
-  }
-}
-
-class Items extends Component {
-  render() {
-    return (
-      <View style={styles.items}>
-        <Icon name='shopping-cart' size={40} type='font-awesome'/>
-        <Item {...this.props}/>
-      </View>
-    );
-  }
-}
-
-class Basket extends Component {
-  render() {
-    return (
-      <View style={styles.basket}>
-        <Icon name='shopping-basket' size={40} type='font-awesome'/>
-
-        {this.props.basket.length > 0
-          ?
-          <View>
-            {this.props.basket.map((item, index) => {
-              return (
-                <View key={index} style={{ width: '100%' }}>
-                  <ListItem
-                  roundAvatar
-                  title={item.name}
-                  subtitle={item.price}
-                  rightTitle={`${item.count}`}
-                  avatar={{uri: item.img}}  
-                  rightIcon={{ name: 'remove-shopping-cart' }}
-                  chevronColor={'#555'}
-                  onPressRightIcon={() => this.props.removeFromBasket(item, index)}
-                  />
-                </View>
-              )
-            })
-          }
-            <Text style={{ textAlign: 'right' }}>Total: {this.props.totalPrice}€</Text>          
-          </View>          
-          :
-          <Text style={{ textAlign: 'center' }}>Le panier est vide :'(</Text>
-        }        
       </View>
     );
   }
@@ -162,17 +122,5 @@ const styles = StyleSheet.create({
   shopDisplay: {
     flex: 1,
     flexDirection: 'column',
-  },
-  items: {
-    width: '100%',
-    borderWidth: 1,
-    borderColor: 'black',
-    padding: 20
-  },
-  basket: {
-    width: '100%',    
-    borderWidth: 1,
-    borderColor: 'black',
-    padding: 20
   }
 });

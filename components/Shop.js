@@ -44,7 +44,7 @@ export default class Shop extends Component {
       totalPrice: this.state.totalPrice - item.price
     })
 
-    if (item.count > 0) {
+    if (item.count > 1) {
       item.count--
     }
   };
